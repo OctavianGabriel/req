@@ -1,0 +1,53 @@
+ID: lab2cloudcomputing
+_schema-version: '2.1'
+parameters:
+  deploy_mode: html5-repo
+version: 0.0.1
+modules:
+  - name: lab2cloudcomputing_appRouter
+    type: approuter.nodejs
+    path: lab2cloudcomputing_appRouter
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: lab2cloudcomputing_html5_repo_runtime
+      - name: uaa_lab2cloudcomputing
+  - name: lab2cloudcomputing_ui_deployer
+    type: com.sap.html5.application-content
+    path: lab2cloudcomputing_ui_deployer
+    requires:
+      - name: lab2cloudcomputing_html5_repo_host
+    build-parameters:
+      requires:
+        - name: firsthtml5
+          artifacts:
+            - './*'
+          target-path: resources/firsthtml5
+  - name: firsthtml5
+    type: html5
+    path: firsthtml5
+    build-parameters:
+      builder: grunt
+resources:
+  - name: lab2cloudcomputing_html5_repo_runtime
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: lab2cloudcomputing_html5_repo_host
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: uaa_lab2cloudcomputing
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+  - name: dest_lab2cloudcomputing
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service

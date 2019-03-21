@@ -1,0 +1,21 @@
+<mvc:View controllerName="ro.unitbv.cloudcomputing.firsthtml5.controller.View1" xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m" xmlns:l="sap.ui.layout">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<l:VerticalLayout class="sapUiContentPadding" width="100%">
+						<l:content>
+							<Label text="{i18n>label1}" labelFor="input-a"/>
+							<Input id="input-a" required="true"/>
+							<Label text="{i18n>label2}" labelFor="input-b" design="Bold"/>
+							<Input id="input-b"/>
+							<Label text="{i18n>label3}" labelFor="input-c"/>
+							<Input id="input-c"/>
+						</l:content>
+					</l:VerticalLayout>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
